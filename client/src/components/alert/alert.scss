@@ -1,0 +1,21 @@
+.alert-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 5;
+
+  .alert {
+    padding: 6px 12px;
+    border-radius: 6px;
+    color: #fff;
+    margin: .5rem;
+
+    &.danger {
+      background: #ff020F;
+    }
+
+    &.success {
+      background: #0eff02;
+    }
+  }
+}
