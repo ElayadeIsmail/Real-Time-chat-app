@@ -28,8 +28,8 @@ const Message = ({ auth: { user }, message }) => {
           </div>
           <div className='message-text'>
             <span className='arrow'></span>
+            <span>{message.user.username}</span>
             <p>{ReactEmoji.emojify(message.text)}</p>
-            <p>{message.text}</p>
           </div>
         </div>
       )}
