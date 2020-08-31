@@ -43,5 +43,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://server-chatss.herokuapp.com/"
+  "proxy": "https://localhost:5000/"
 }
