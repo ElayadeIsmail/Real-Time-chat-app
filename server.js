@@ -3,6 +3,7 @@ const http = require("http");
 const socketio = require("socket.io");
 const cors = require("cors");
 const path = require("path");
+const formatMessage = require("./messages");
 
 const connectDB = require("./config/db");
 
@@ -27,15 +28,20 @@ io.on("connection", (socket) => {
     socket.join(userInfo.room);
     const user = userInfo.userFront;
 
-    socket.emit("message", {
-      user: "admin",
-      text: `${user.username} Welcome to the room ${userInfo.room}`,
-    });
+    socket.emit(
+      "message",
+      formatMessage(
+        "admin",
+        `${user.username} Welcome to the room ${userInfo.room}`
+      )
+    );
 
-    socket.broadcast.to(userInfo.room).emit("message", {
-      user: "admin",
-      text: `${user.username} Has Joined the Chat`,
-    });
+    socket.broadcast
+      .to(userInfo.room)
+      .emit(
+        "message",
+        formatMessage("admin", `${user.username} Has Joined the Chat`)
+      );
     io.to(userInfo.room).emit("roomData", {
       room: userInfo.room,
       users: getUsersInRoom(userInfo.room),
@@ -44,16 +50,16 @@ io.on("connection", (socket) => {
 
   socket.on("sendMessage", (message, callback) => {
     const user = getUser(socket.id);
-    io.to(user.room).emit("message", { user: user.userFront, text: message });
+    io.to(user.room).emit("message", formatMessage(user.userFront, message));
     callback();
   });
   socket.on("disconnect", () => {
     const user = removeUser(socket.id);
     if (user) {
-      io.to(user.room).emit("message", {
-        user: "admin",
-        text: `${user.userFront.username} Has Left the Chat`,
-      });
+      io.to(user.room).emit(
+        "message",
+        formatMessage("admin", `${user.userFront.username} Has Left the Chat`)
+      );
       io.to(user.room).emit("roomData", {
         room: user.room,
         users: getUsersInRoom(user.room),

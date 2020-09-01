@@ -8,13 +8,21 @@ const Message = ({ auth: { user }, message }) => {
     <>
       {message.user === "admin" ? (
         <div className='admin'>
+          <span style={{ textAlign: "center", color: "greenyellow" }}>
+            {message.time}
+          </span>
           <p>{message.text}</p>
         </div>
       ) : message.user._id === user._id ? (
         <div className='message-user'>
           <div className='message-text-user'>
             <span className='arrow'></span>
-            <span>{message.user.username}</span>
+            <span>
+              {message.user.username}{" "}
+              <span style={{ marginLeft: ".4rem", color: "greenyellow" }}>
+                {message.time}
+              </span>
+            </span>
             <p>{ReactEmoji.emojify(message.text)}</p>
           </div>
           <div className='msg-img-user'>
@@ -28,7 +36,12 @@ const Message = ({ auth: { user }, message }) => {
           </div>
           <div className='message-text'>
             <span className='arrow'></span>
-            <span>{message.user.username}</span>
+            <span>
+              {message.user.username}{" "}
+              <span style={{ marginLeft: ".4rem", color: "green" }}>
+                {message.time}
+              </span>{" "}
+            </span>
             <p>{ReactEmoji.emojify(message.text)}</p>
           </div>
         </div>
