@@ -15,8 +15,7 @@ const ChatPage = ({ auth: { user } }) => {
   const [users, setUsers] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  // const ENDPOINT = "https://server-chatss.herokuapp.com/";
-  const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = "https://server-chatss.herokuapp.com/";
   const { room } = useParams();
   CheckRoom(room);
   useEffect(() => {
